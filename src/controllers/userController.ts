@@ -11,5 +11,8 @@ async function create(req: Request, res: Response) {
   const token = jwt.sign({ username }, secret, { expiresIn: '7d', algorithm: 'HS256' });
   res.status(201).json({ token });  
 }
-
-export default { create };
+async function getAll(_req: Request, res: Response) {
+  const { status, data } = await userService.getAll();
+  res.status(status).json(data);
+}
+export default { create, getAll };

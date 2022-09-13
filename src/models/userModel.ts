@@ -1,7 +1,7 @@
 import { ResultSetHeader } from 'mysql2';
 
 import connection from './connection';
-import { User } from '../interfaces/user.interface';
+import { IUser, User } from '../interfaces/user.interface';
 
 async function create(user: User): Promise<void> {
   const { username, classe, level, password } = user;
@@ -12,4 +12,11 @@ async function create(user: User): Promise<void> {
 
   await connection.execute<ResultSetHeader>(query, values);
 }
-export default { create };
+async function getAll(): Promise<IUser[]> {
+  const query = 'SELECT * FROM Trybesmith.Users';
+
+  const [products] = await connection.execute(query);
+
+  return products as IUser[];
+}
+export default { create, getAll };
