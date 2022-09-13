@@ -9,7 +9,7 @@ async function create(req: Request, res: Response) {
 
   res.status(status).json(data);
 }
-export async function getAll(_req: Request, res: Response) {
+async function getAll(_req: Request, res: Response) {
   const { status, data } = await productService.getAll();
   res.status(status).json(data);
 }
