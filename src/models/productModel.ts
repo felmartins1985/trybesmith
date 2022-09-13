@@ -15,5 +15,11 @@ async function create(product: Product): Promise<IProduct> {
   const newProduct: IProduct = { id, name, amount };
   return newProduct;
 }
+async function getAll(): Promise<IProduct[]> {
+  const query = 'SELECT * FROM Trybesmith.Products';
 
-export default { create };
+  const [products] = await connection.execute(query);
+
+  return products as IProduct[];
+}
+export default { create, getAll };
