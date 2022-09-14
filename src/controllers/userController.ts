@@ -6,8 +6,11 @@ import userService from '../services/userService';
 
 const secret = 'secret';
 async function create(req: Request, res: Response) {
-  await userService.create(req.body as IUser);
+  const { message, status } = await userService.create(req.body as IUser);
   const { username } = req.body;
+  if (message) {
+    return res.status(status).json({ message });
+  }
   const token = jwt.sign({ username }, secret, { expiresIn: '7d', algorithm: 'HS256' });
   res.status(201).json({ token });  
 }
