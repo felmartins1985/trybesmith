@@ -53,22 +53,16 @@ const validatePassword = (password: string) => {
 async function create(user: IUser): Promise<any> {
   const { username, classe, level, password } = user;
   const createName = validateName(username);
-  if (createName !== true) { 
-    return createName;
-  }
+  if (createName !== true) return createName;
+
   const createClasse = validateClasse(classe);
-  if (createClasse !== true) {
-    return createClasse;
-  }
+  if (createClasse !== true) return createClasse;
   const createLevel = validateLevel(level);
-  if (createLevel !== true) {
-    return createLevel;
-  }
+  if (createLevel !== true) return createLevel;
   const createPassword = validatePassword(password);
-  if (createPassword !== true) {
-    return createPassword;
-  }
+  if (createPassword !== true) return createPassword;
   await userModel.create(user);
+  return { status: 201 };
 }
 async function getAll() {
   const data = await userModel.getAll();
