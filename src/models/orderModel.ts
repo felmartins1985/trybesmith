@@ -1,3 +1,4 @@
+import { ResultSetHeader } from 'mysql2';
 import connection from './connection';
 import { IOrder } from '../interfaces/order.interface';
 
@@ -23,4 +24,22 @@ async function getAll(): Promise<IOrder[]> {
   // return newArray;
   return rows;
 }
-export default { getAll };
+async function create(userId: number, productsIds: number[]) {
+  productsIds.forEach(async (productsId) => {
+    const query = `
+      INSERT INTO Trybesmith.Orders (userId)
+      VALUES (?)
+    `;
+    const values = [userId];
+    const [dataInserted] = await connection.execute<ResultSetHeader>(query, values);
+    const { insertId } = dataInserted;
+
+    const query2 = `
+      UPDATE Trybesmith.Products SET orderId = ? WHERE id = ?;
+    `;
+    const values2 = [insertId, productsId];
+    await connection.execute<ResultSetHeader>(query2, values2);
+  });
+  return { userId, productsIds };
+}
+export default { getAll, create };

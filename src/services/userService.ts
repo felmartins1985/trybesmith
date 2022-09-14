@@ -74,4 +74,8 @@ async function getAll() {
   const data = await userModel.getAll();
   return { status: 200, data };
 }
-export default { create, getAll };
+async function getByUserName(username: string) {
+  const data = await userModel.getByUserName(username);
+  return data;
+}
+export default { create, getAll, getByUserName };
