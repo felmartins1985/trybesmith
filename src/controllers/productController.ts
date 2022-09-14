@@ -8,7 +8,7 @@ async function create(req: Request, res: Response) {
   const { status, data, message } = await productService.create(product);
   if (message) {
     return res.status(status).json({ message });
-  }
+  } 
   res.status(status).json(data);
 }
 async function getAll(_req: Request, res: Response) {

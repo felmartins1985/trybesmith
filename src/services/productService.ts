@@ -27,8 +27,7 @@ const validateAmount = (amount: string) => {
 };
 
 async function create(product: IProduct): Promise<any> {
-  const data = await productModel.create(product);
-  const { name, amount } = data;
+  const { name, amount } = product;
   const validateCreateName = validateName(name);
   if (validateCreateName !== true) {
     return validateCreateName;
@@ -37,6 +36,7 @@ async function create(product: IProduct): Promise<any> {
   if (validateCreateAmount !== true) {
     return validateCreateAmount;
   }
+  const data = await productModel.create(product);
   return { status: 201, data };
 }
 async function getAll() {
