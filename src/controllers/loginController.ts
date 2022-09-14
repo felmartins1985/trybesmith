@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
 
-import { IUser } from '../interfaces/user.interface';
 import loginService from '../services/loginService';
 
 const secret = 'secret';
