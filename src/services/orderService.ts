@@ -28,7 +28,7 @@ async function create(userId: number, productsIds: number[]): Promise<Objeto> {
   const validate = validateProducts(productsIds);
   if (validate !== true) {
     return validate;
-  }
+  } 
   const order = await orderModel.create(userId, productsIds);
   return { status: 201, order };
 }

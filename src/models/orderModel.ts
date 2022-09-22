@@ -40,6 +40,6 @@ async function create(userId: number, productsIds: number[]) {
     const values2 = [insertId, productsId];
     await connection.execute<ResultSetHeader>(query2, values2);
   });
-  return { userId, productsIds };
+  return { userId, productsIds }; 
 }
 export default { getAll, create };
